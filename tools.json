@@ -1,0 +1,96 @@
+{
+	"jq":
+	{
+		"categories":
+		[
+			"utils"
+			, "json"
+			, "parser"
+			, "cli"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "JSON parser for cli"
+		, "pakage": "jq"
+	}
+	, "binwalk":
+	{
+		"categories":
+		[
+			"file carving"
+			, "forensics"
+		]
+		, "config": {"custom":[], "default":[]}
+		, "description": "Tool for searching binary images for embedded files and executable code"
+		, "package": "binwalk"
+	}
+	, "photorec":
+	{
+		"categories":
+		[
+			"file carving"
+			, "forensics"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Tool to recover lost files from harddisk, digital camera and cdrom"
+		, "pakage": "testdisk"
+	}
+	, "volatility":
+	{
+		"categories":
+		[
+			"forensics"
+			, "framework"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Memory forensics framework with multiple tools to perform various tasks, like extracting the process list (with pstree), dump DLLs of a process (with dlldump)... "
+		, "pakage": "volatility"
+	}
+	, "steghide":
+	{
+		"categories":
+		[
+			"steganography"
+			, "stego"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Program to extract or embed data in another file, hiding it (thus the name 'steghide')"
+		, "pakage": "steghide"
+	}
+	, "stegsolve":
+	{
+		"categories":
+		[
+			"steganography"
+			, "steganoanalysis"
+			, "stego"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Tool to perform different analysis on a file to determine if there's hidden data on it, and recover it"
+		, "pakage": "http://www.caesum.com/handbook/Stegsolve.jar"
+	}
+	, "ctags":
+	{
+		"categories":
+		[
+			"utils"
+			, "cli"
+			, "programming"
+		]
+		, "config": {"custom": ["./config/.ctags"], "default": []}
+		, "description": ""
+		, "pakage": "https://github.com/universal-ctags/ctags"
+	}
+
+
+
+
+
+
+	, "":
+	{
+		"categories": []
+		, "config": {"custom": [], "default": []}
+		, "description": ""
+		, "pakage": ""
+	}
+}
