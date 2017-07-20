@@ -224,3 +224,10 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 """"
 "let g:gradle_path = ''
 "let g:android_sdk_path = ''
+
+"""
+" Deshabilita la columna de color para los archivos de texto plano (Markdown,
+" JSON...)
+"""
+autocmd FileType markdown set colorcolumn=
+autocmd FileType json set colorcolumn=

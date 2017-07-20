@@ -6,7 +6,7 @@ The objective for this repository is to have a list with all the tools that I (o
 
 
 
-# Files
+# Files and directories
 
 ## tools.json
 On the file `tools.json` there's a list (on JSON format) with an object with the following fields:
@@ -21,8 +21,8 @@ On the file `tools.json` there's a list (on JSON format) with an object with the
  4. __package__: Name of the aptitude package (if any), to easily install it via `apt-get`, or the URL where the package can be downloaded and installed
 
 
-## .vimrc
-Customized configuration file for Vim. Needs [Vundle](https://github.com/VundleVim/Vundle.vim)
+## vim
+Directory with a customized configuration file for Vim and a couple of files for syntax highlighting. Needs [Vundle](https://github.com/VundleVim/Vundle.vim)
 
 
 The installed plugins are the following:
