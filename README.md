@@ -2,7 +2,7 @@
 
 This repository contains some tools that are useful, with their descriptions and more info.
 
-The motivation for this repository is for having a list with all the tools that I may need. The ultimate goal is to be able to install and use all this tools on fresh installations of, at least, Debian-based distributions (specifically aimed at Ubuntu)
+The objective for this repository is to have a list with all the tools that I (or someone else) may need. The ultimate goal is to be able to install and use all this tools on fresh installations of, at least, Debian-based distributions (specifically aimed at Ubuntu)
 
 
 
