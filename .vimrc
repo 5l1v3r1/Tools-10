@@ -222,5 +222,5 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 """"
 " Configuración del soporte para Android
 """"
-"let g:gradle_path = '/media/foo-manroot/HDD_Varios/Programas/Gradle/gradle-3.5'
-let g:android_sdk_path = '/media/foo-manroot/HDD_Varios/Programas/Android/SDK'
+"let g:gradle_path = ''
+"let g:android_sdk_path = ''
