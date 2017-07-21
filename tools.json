@@ -10,7 +10,7 @@
 		]
 		, "config": {"custom": [], "default": []}
 		, "description": "JSON parser for cli"
-		, "pakage": "jq"
+		, "package": "jq"
 	}
 	, "binwalk":
 	{
@@ -32,7 +32,7 @@
 		]
 		, "config": {"custom": [], "default": []}
 		, "description": "Tool to recover lost files from harddisk, digital camera and cdrom"
-		, "pakage": "testdisk"
+		, "package": "testdisk"
 	}
 	, "volatility":
 	{
@@ -43,7 +43,7 @@
 		]
 		, "config": {"custom": [], "default": []}
 		, "description": "Memory forensics framework with multiple tools to perform various tasks, like extracting the process list (with pstree), dump DLLs of a process (with dlldump)... "
-		, "pakage": "volatility"
+		, "package": "volatility"
 	}
 	, "steghide":
 	{
@@ -54,7 +54,7 @@
 		]
 		, "config": {"custom": [], "default": []}
 		, "description": "Program to extract or embed data in another file, hiding it (thus the name 'steghide')"
-		, "pakage": "steghide"
+		, "package": "steghide"
 	}
 	, "stegsolve":
 	{
@@ -66,7 +66,7 @@
 		]
 		, "config": {"custom": [], "default": []}
 		, "description": "Tool to perform different analysis on a file to determine if there's hidden data on it, and recover it"
-		, "pakage": "http://www.caesum.com/handbook/Stegsolve.jar"
+		, "package": "http://www.caesum.com/handbook/Stegsolve.jar"
 	}
 	, "ctags":
 	{
@@ -77,8 +77,8 @@
 			, "programming"
 		]
 		, "config": {"custom": ["./config/.ctags"], "default": []}
-		, "description": ""
-		, "pakage": "https://github.com/universal-ctags/ctags"
+		, "description": "Provides tags for source code, so variables and functions can be easily found (even between different files)"
+		, "package": "https://github.com/universal-ctags/ctags"
 	}
 
 
@@ -91,6 +91,6 @@
 		"categories": []
 		, "config": {"custom": [], "default": []}
 		, "description": ""
-		, "pakage": ""
+		, "package": ""
 	}
 }
