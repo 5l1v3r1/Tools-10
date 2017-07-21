@@ -80,8 +80,21 @@
 		, "description": "Provides tags for source code, so variables and functions can be easily found (even between different files)"
 		, "package": "https://github.com/universal-ctags/ctags"
 	}
-
-
+	, "zbarimg":
+	{
+		"categories":
+		[
+			"utils"
+			, "image"
+			, "parser"
+			, "qr"
+			, "barcode"
+			, "reader"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Scans and decodes bar codes from image files"
+		, "package": "zbar-tools"
+	}
 
 
 

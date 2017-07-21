@@ -1,0 +1,35 @@
+{
+	"zbarimg":
+	{
+		"categories":
+		[
+			"utils"
+			, "image"
+			, "parser"
+			, "qr"
+			, "barcode"
+			, "reader"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Scans and decodes bar codes from image files"
+		, "package": "zbar-tools"
+	}
+	, "_tool_test_":
+	{
+		"categories": []
+		, "config": {"custom": [], "default": []}
+		, "description": ""
+		, "package": "_pkg_test_"
+	}
+
+
+
+
+	, "":
+	{
+		"categories": []
+		, "config": {"custom": [], "default": []}
+		, "description": ""
+		, "package": ""
+	}
+}

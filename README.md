@@ -8,8 +8,11 @@ The objective for this repository is to have a list with all the tools that I (o
 
 # Files and directories
 
+## installer.sh
+Shell script (POSIX complaint) to install all tools listed on __tools.json__
+
 ## tools.json
-On the file `tools.json` there's a list (on JSON format) with an object with the following fields:
+List, on JSON format, with an object with the following fields:
 
  1. __categories__: Categories to classify the tool and facilitate searching
  2. __config__: Object with information about the configuration of the tool. This object	can have these values:
@@ -46,3 +49,6 @@ The installed plugins are the following:
  - [JavaComplete 2](https://github.com/artur-shaik/vim-javacomplete2): Updated version of the plugin _javacomplete_
  - [HTML AutoCloseTag](https://github.com/vim-scripts/HTML-AutoCloseTag): Automatically closes HTML tags
  - [Android](https://github.com/hsanson/vim-android): Support for Android development
+
+## aux_installers
+Directory with installers for tools not provided with aptitude
