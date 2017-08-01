@@ -56,7 +56,7 @@ Plugin 'derekwyatt/vim-scala'
 Plugin 'shawncplus/phpcomplete.vim'
 
 " Soporte para LaTeX
-"Plugin 'lervag/vimtex'
+Plugin 'lervag/vimtex'
 
 """"
 " LOLCODE
