@@ -110,6 +110,9 @@ filetype plugin on
 " Estilos "
 """""""""""
 
+" Modifica el comportamiento del tabulador
+autocmd BufRead,BufNewFile *.html,*.htm,*.css,*.scss set tabstop=4
+
 " Muestra los espacios no deseados (al final de línea o antes de una tabulación)
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 match ExtraWhitespace /\s\+$\| \+\ze\t/
