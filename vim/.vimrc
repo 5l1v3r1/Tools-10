@@ -234,3 +234,16 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 """
 autocmd FileType markdown set colorcolumn=
 autocmd FileType json set colorcolumn=
+
+
+"""
+" Busca ficheros de configuración específicos para proyectos
+"""
+let b:thisdir=expand("%:p:h")
+let b:vim=b:thisdir."/.vim.custom"
+if (filereadable(b:vim))
+	execute "source ".b:vim
+endif
+
+" Lo archivos de tipo .vim.custom deben tener la misma sintaxis que la de .vimrc
+autocmd BufRead,BufNewFile .vim.custom set syntax=vim
