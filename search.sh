@@ -29,28 +29,6 @@ PRETTY_UNDERLINE=$(tput smul)
 # ----
 
 ###
-# Functions to log, depending on the message level
-#
-
-log_info ()
-{
-	printf "${PRETTY_BLUE}$@${PRETTY_RESET}\n"
-}
-
-log_error ()
-{
-	printf "${PRETTY_RED}$@${PRETTY_RESET}\n"
-}
-
-log_success ()
-{
-	printf "${PRETTY_GREEN}$@${PRETTY_RESET}\n"
-}
-
-# ------------------------------
-
-
-###
 # Global variables
 ###
 PKGS_FILE="./tools.json"
@@ -135,6 +113,82 @@ parse_args ()
 }
 
 
+###
+# Functions to log, depending on the message level
+#
+
+log_info ()
+{
+	printf "${PRETTY_BLUE}$@${PRETTY_RESET}"
+}
+
+log_error ()
+{
+	printf "${PRETTY_RED}$@${PRETTY_RESET}"
+}
+
+log_success ()
+{
+	printf "${PRETTY_GREEN}$@${PRETTY_RESET}"
+}
+
+###
+# Other custom functions
+#
+show_pkg_info ()
+{
+	key="$(echo "$1" | tr -d \")"
+
+	# Returns if the key is an empty string
+	[ -z "$key" ] && return 1
+
+	categ="$(jq -c ".$key.categories" "$PKGS_FILE" | \
+		tr -d "[]\"" | sed -e "s/,/ \/\/ /g")"
+
+	descr="$(jq ".$key.description" "$PKGS_FILE" | \
+		tr -d \")"
+
+	pkg="$(jq ".$key.package" "$PKGS_FILE" | \
+		tr -d \")"
+
+
+	log_info "\n********************************\n"
+
+	log_info "=> Tool name: '%s'" \
+		"${PRETTY_BOLD}${PRETTY_RED}$key"
+
+
+	if [ "$verbosity" -ge 1 ]
+	then
+		log_info "\n\t -> %sDescription: %s"	\
+			${PRETTY_GREEN}			\
+			"${PRETTY_BLUE}$descr"
+	fi
+
+	if [ "$verbosity" -ge 2 ]
+	then
+		log_info "\n\t -> %sCategories: %s"	\
+			${PRETTY_GREEN}			\
+			"${PRETTY_BLUE}$categ"
+	fi
+
+	if [ "$verbosity" -ge 3 ]
+	then
+		log_info "\n\t -> %sPackage name: %s"	\
+			${PRETTY_GREEN}			\
+			"${PRETTY_BLUE}$pkg"
+	fi
+
+	log_info "\n----------------\n"
+	return 0
+}
+
+
+# _-_-_-_-_-_-_-_-_-_-_-_-_
+
+
+
+
 parse_args "$@"
 
 results=""
@@ -156,28 +210,8 @@ do
 	)"
 done
 
-# Echoes the results back
+# Shows the results
 for res in $results
 do
-	pkg="$(jq '.["'"$res"'"]' "$PKGS_FILE")"
-
-	log_info "${PRETTY_RESET}Tool name: ${PRETTY_UNDERLINE}$res"
-
-	if [ "$verbosity" -ge 1 ]
-	then
-		log_info "${PRETTY_BLUE}\t$(echo "$pkg" \
-						| jq ".description" \
-						| tr -d \"
-		)"
-	fi
-
-	if [ "$verbosity" -ge 2 ]
-	then
-		log_info "${PRETTY_YELLOW}\t$(echo "$pkg" \
-						| jq ".categories" \
-						| tr -d " []\"\n" \
-						| sed -e 's/,/ \/\/ /g'
-		)"
-	fi
-
+	show_pkg_info "$res"
 done
