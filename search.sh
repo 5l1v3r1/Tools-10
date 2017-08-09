@@ -1,6 +1,6 @@
 #!/bin/sh
 
-AUTHORS="Foo-Manrot"
+AUTHORS="Foo-Manroot"
 LAST_MODIF_DATE="2017-08-09"
 VERSION="v1.0"
 
@@ -11,22 +11,6 @@ VERSION="v1.0"
 #	jq
 ####
 
-
-###
-# Colours and formats to prettify the output
-#
-PRETTY_RESET=$(tput sgr0)
-
-PRETTY_RED=$(tput setaf 9)
-PRETTY_GREEN=$(tput setaf 10)
-PRETTY_YELLOW=$(tput setaf 11)
-PRETTY_BLUE=$(tput setaf 14)
-
-PRETTY_BOLD=$(tput bold)
-PRETTY_REVERSE=$(tput smso)
-PRETTY_UNDERLINE=$(tput smul)
-
-# ----
 
 ###
 # Global variables
@@ -46,7 +30,8 @@ $0 [options] <filters>
 Where 'options' may be one of the following:
 	-f
 	--file
-		File in JSON format with the tools information.
+		 File in JSON format with the tools information.
+		Defaults to '$PKGS_FILE'.
 	-h
 	--help
 		Show this message and exits.
@@ -54,6 +39,22 @@ Where 'options' may be one of the following:
 	--verbose
 		Increases verbosity level.
 "
+
+###
+# Colours and formats to prettify the output
+#
+PRETTY_RESET=$(tput sgr0)
+
+PRETTY_RED=$(tput setaf 9)
+PRETTY_GREEN=$(tput setaf 10)
+PRETTY_YELLOW=$(tput setaf 11)
+PRETTY_BLUE=$(tput setaf 14)
+
+PRETTY_BOLD=$(tput bold)
+PRETTY_REVERSE=$(tput smso)
+PRETTY_UNDERLINE=$(tput smul)
+
+# ----
 
 ###
 # Options
@@ -185,8 +186,6 @@ show_pkg_info ()
 
 
 # _-_-_-_-_-_-_-_-_-_-_-_-_
-
-
 
 
 parse_args "$@"

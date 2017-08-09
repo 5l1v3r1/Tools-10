@@ -1,5 +1,9 @@
 #!/bin/sh
 
+AUTHORS="Foo-Manroot"
+LAST_MODIF_DATE="2017-08-09"
+VERSION="v1.0"
+
 #####
 # Installer for the tools contained on 'tools.json'
 #
@@ -13,6 +17,30 @@
 ###
 PKGS_FILE="./tools.json"
 INSTALLERS_DIR="./aux_installers"
+
+HELP_MSG="$AUTHORS
+$LAST_MODIF_DATE
+$VERSION
+${PRETTY_RESET}
+This script is made to help to install the tools present on the file.
+
+Usage:
+
+$0 [options]
+
+Where 'options' may be one of the following:
+	-d
+	--dir
+		 Directory to search for custom installers.
+		Defaults to '$INSTALLERS_DIR'.
+	-f
+	--file
+		 File in JSON format with the tools information.
+		Defaults to '$PKGS_FILE'.
+	-h
+	--help
+		Show this message and exits.
+"
 
 ###
 # Colours and formats to prettify the output
@@ -30,6 +58,71 @@ PRETTY_UNDERLINE=$(tput smul)
 
 # ----
 
+####
+# Parses options
+####
+parse_args ()
+{
+	SHORT_OPTS=d:f:h
+	LONG_OPTS=dir:,file:,help
+
+	# Checks that getopt can be used
+	getopt --test > /dev/null
+	if [ $? -ne 4 ]
+	then
+		log_error "$0: Error -> args can't be parsed, as 'getopt' can't be used."
+
+		exit 1
+	fi
+
+	# Guarda el resultado para manejar correctamente los errores
+	opts=$(getopt --options $SHORT_OPTS --longoptions $LONG_OPTS \
+		 --name "$0" -- "$@") || exit 1
+
+	eval set -- "$opts"
+
+	# Loop to evaluate the available options
+	while true
+	do
+		case "$1" in
+			-d | --dir )
+				if [ -d "$2" ]
+				then
+					INSTALLERS_DIR="$2"
+					log_info "Using '$2' as custom installers dir\n"
+					shift 2
+				else
+					log_error "'$2' is not a directory\n"
+					exit 1
+				fi
+				;;
+			-f | --file)
+				if [ -f "$2" ]
+				then
+					PKGS_FILE="$2"
+					log_info "Using '$2' as custom JSON file\n"
+					shift 2
+				else
+					log_error "'$2' is not a file\n"
+					exit 1
+				fi
+				;;
+			-h | --help)
+				# Shows the help message and exits
+				log_info "$HELP_MSG"
+				exit 0;;
+			--)
+				# Ends the loop
+				shift
+				break;;
+			*)
+				log_error "Unknown Error while parsing options - '$1'\n"
+				exit 1;;
+		esac
+	done
+}
+
+
 ###
 # Functions to log, depending on the message level
 #
@@ -41,7 +134,7 @@ log_info ()
 
 log_error ()
 {
-	printf "${PRETTY_RED}$@${PRETTY_RESET}"
+	printf "${PRETTY_RED}$0 Error: $@${PRETTY_RESET}"
 }
 
 log_success ()
@@ -178,6 +271,7 @@ install ()
 
 # _-_-_-_-_-_-_-_-_-_-_-_-_
 
+parse_args "$@"
 errors=0
 
 ##
@@ -226,7 +320,7 @@ log_info "There are %s%i items%s in '%s'\n"	\
 	"$PKGS_FILE"
 
 # Gets the keys on a string, using ' ' as a delimiter between values
-keys=$(jq "keys" tools.json -M -S -c | tr -d "[]" | sed -e "s/,/ /g")
+keys=$(jq "keys" "$PKGS_FILE" -M -S -c | tr -d "[]" | sed -e "s/,/ /g")
 
 all=0
 quit=0
