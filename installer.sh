@@ -225,7 +225,7 @@ log_info "There are %s%i items%s in '%s'\n"	\
 	${PRETTY_BLUE}		\
 	"$PKGS_FILE"
 
-# Gets the keys on a string, using \s as a delimiter between values
+# Gets the keys on a string, using ' ' as a delimiter between values
 keys=$(jq "keys" tools.json -MSc | tr -d "[]" | sed -e "s/,/ /g")
 
 all=0
