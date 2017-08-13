@@ -17,6 +17,7 @@ VERSION="v1.0"
 ###
 PKGS_FILE="./tools.json"
 INSTALLERS_DIR="./aux_installers"
+UNINSTALLERS_DIR="./aux_uninstallers"
 
 HELP_MSG="$AUTHORS
 $LAST_MODIF_DATE
@@ -40,7 +41,12 @@ Where 'options' may be one of the following:
 	-h
 	--help
 		Show this message and exits.
+	-u
+	--uninstall
+		Uninstalls the packages, instead of installing them.
 "
+
+UNINSTALL=false
 
 ###
 # Colours and formats to prettify the output
@@ -63,8 +69,8 @@ PRETTY_UNDERLINE=$(tput smul)
 ####
 parse_args ()
 {
-	SHORT_OPTS=d:f:h
-	LONG_OPTS=dir:,file:,help
+	SHORT_OPTS=d:f:hu
+	LONG_OPTS=dir:,file:,help,uninstall
 
 	# Checks that getopt can be used
 	getopt --test > /dev/null
@@ -110,7 +116,12 @@ parse_args ()
 			-h | --help)
 				# Shows the help message and exits
 				log_info "$HELP_MSG"
-				exit 0;;
+				exit 0
+				;;
+			-u | --uninstall)
+				UNINSTALL=true
+				shift
+				;;
 			--)
 				# Ends the loop
 				shift
@@ -186,6 +197,84 @@ show_pkg_info ()
 }
 
 
+uninstall ()
+{
+	tool="$(echo "$1" | tr -d \")"
+	pkg="$(jq -c ".$tool.package" "$PKGS_FILE" | tr -d \")"
+
+	log_info "\n\n$PRETTY_BOLD +++++++++++++++++++++++++ \n"
+
+	# Checks if the tool is already available
+	which "$tool" > /dev/null
+	if [ $? -ne 0 ]
+	then
+		log_success " %sTool not installed: %s" \
+				$PRETTY_UNDERLINE	\
+				${PRETTY_YELLOW}"$tool"${PRETTY_GREEN}
+		log_info "\n$PRETTY_BOLD +++++++++++++++++++++++++ \n"
+
+		return
+	fi
+
+
+	# Tools that can't be located using aptitude will use an URL
+	res="$(expr "$pkg" : "[a-zA-Z]://")"
+	apt="$(apt-cache policy "$pkg" | grep -Pi "installed: .*" | grep -Piv "(none)")"
+
+	# Only uninstalls it if there is an available package
+	if [ -z "$pkg" ]
+	then
+		log_error " No available package for %s"	\
+			  "'${PRETTY_YELLOW}$pkg${PRETTY_RED}'"
+
+	# Uses the custom uninstallers when needed
+	elif [ $res -ne 0 ] \
+		|| [ -z "$apt" ]
+	then
+		log_info "The tool can't be uninstalled with aptitude: %s\n" \
+			"${PRETTY_YELLOW}$tool${PRETTY_BLUE}"
+
+		# Searches a script to install it under INSTALLERS_DIR
+		if [ "$(find "$UNINSTALLERS_DIR" -name "$pkg" | wc -l)" -eq 1 ]
+		then
+			file="$(find "$UNINSTALLERS_DIR" -name "$pkg")"
+
+			log_info "Using uninstaller %s\n" \
+				"${PRETTY_YELLOW}$file"
+
+			sh "$file"
+			if [ $? -ne 0 ]
+			then
+				log_error "\n ==> The package couldn't be removed: %s"\
+					 "${PRETTY_UNDERLINE}$pkg"
+
+			else
+				log_success "\n ==> Package uninstalled: %s" \
+					 "${PRETTY_YELLOW}$pkg"
+			fi
+		else
+			log_error "\n ==> No available method to uninstall package %s" \
+					 "${PRETTY_UNDERLINE}$pkg"
+		fi
+	# Uses aptitude
+	else
+		log_info " --> Uninstalling package %s\n"	\
+			"'${PRETTY_YELLOW}$pkg${PRETTY_BLUE}'..."
+
+		sudo apt-get remove --yes --show-progress "$pkg" # --simulate
+		if [ $? -ne 0 ]
+		then
+			log_error "\n ==> The package couldn't be uninstalled: %s"\
+				 "${PRETTY_UNDERLINE}$pkg"
+
+		else
+			log_success "\n ==> Package uninstalled: %s" \
+				 "${PRETTY_YELLOW}$pkg"
+		fi
+	fi
+
+	log_info "\n$PRETTY_BOLD +++++++++++++++++++++++++ \n"
+}
 
 
 install ()
@@ -226,9 +315,9 @@ install ()
 			"${PRETTY_YELLOW}$tool${PRETTY_BLUE}"
 
 		# Searches a script to install it under INSTALLERS_DIR
-		if [ "$(find "$INSTALLERS_DIR" -name "$pkg.sh" | wc -l)" -eq 1 ]
+		if [ "$(find "$INSTALLERS_DIR" -name "$pkg" | wc -l)" -eq 1 ]
 		then
-			file="$(find "$INSTALLERS_DIR" -name "$pkg.sh")"
+			file="$(find "$INSTALLERS_DIR" -name "$pkg")"
 
 			log_info "Using installer %s\n" \
 				"${PRETTY_YELLOW}$file"
@@ -322,31 +411,61 @@ log_info "There are %s%i items%s in '%s'\n"	\
 # Gets the keys on a string, using ' ' as a delimiter between values
 keys=$(jq "keys" "$PKGS_FILE" -M -S -c | tr -d "[]" | sed -e "s/,/ /g")
 
-all=0
-quit=0
-msg="Do you wish to install this program? [Yy]es [Nn]o [Aa]ll [Qq]uit -> "
+all=false
+quit=false
+
+if ! $UNINSTALL
+then
+	msg="Do you wish to install this program? [Yy]es [Nn]o [Aa]ll [Qq]uit -> "
+else
+	msg="Do you wish to uninstall this program? [Yy]es [Nn]o [Aa]ll [Qq]uit -> "
+fi
 
 for k in $keys
 do
 	show_pkg_info "$k"
 	[ $? -ne 0 ] && continue
 
-	if [ $all -ne 1 ]
+	if ! $all
 	then
 		while true; do
 			read -p "$msg" answer
 			case $answer in
-				[Yy]* ) install "$k"; break;;
+				[Yy]* )
+					if ! $UNINSTALL
+					then
+						install "$k"
+					else
+						uninstall "$k"
+					fi
+					break
+					;;
 				[Nn]* ) break;;
-				[Aa]* ) install "$k"; all=1; break;;
-				[Qq]* ) quit=1; break;;
+				[Aa]* )
+					if ! $UNINSTALL
+					then
+						install "$k"
+					else
+						uninstall "$k"
+					fi
+
+					all=true
+
+					break
+					;;
+				[Qq]* ) quit=true; break;;
 				* ) echo "Please answer one of the accepted answers.";;
 			esac
 		done
 	else
-		install "$k"
+		if ! $UNINSTALL
+		then
+			install "$k"
+		else
+			uninstall "$k"
+		fi
 	fi
 
-	[ $quit -eq 1 ] && break;
+	$quit && break;
 done
 
