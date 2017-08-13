@@ -95,15 +95,15 @@
 		, "description": "Scans and decodes bar codes from image files"
 		, "package": "zbar-tools"
 	}
-
-
-
-
-	, "":
+	, "rpatool":
 	{
-		"categories": []
+		"categories":
+		[
+			"forensics"
+			, "renpy"
+		]
 		, "config": {"custom": [], "default": []}
-		, "description": ""
-		, "package": ""
+		, "description": "Uncompresses archive (*.rpy) files with data of a game made with the engine 'RenPy'"
+		, "package": "__rpatool.sh"
 	}
 }

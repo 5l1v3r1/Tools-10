@@ -1,0 +1,7 @@
+#!/bin/sh
+
+FILENAME="rpatool"
+
+DESTINATION="/usr/local/bin/$FILENAME"
+
+rm -y -v "$DESTINATION"
