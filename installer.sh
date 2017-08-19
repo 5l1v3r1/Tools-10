@@ -205,7 +205,7 @@ uninstall ()
 	log_info "\n\n$PRETTY_BOLD +++++++++++++++++++++++++ \n"
 
 	# Checks if the tool is already available
-	which "$tool" > /dev/null
+	command -v "$tool" > /dev/null 2>&1
 	if [ $? -ne 0 ]
 	then
 		log_success " %sTool not installed: %s" \
@@ -285,7 +285,7 @@ install ()
 	log_info "\n\n$PRETTY_BOLD +++++++++++++++++++++++++ \n"
 
 	# Checks if the tool is already available
-	which "$tool" > /dev/null
+	command -v "$tool" > /dev/null 2>&1
 	if [ $? -eq 0 ]
 	then
 		log_success " %sTool already installed: %s" \
@@ -371,8 +371,7 @@ log_info "\n --> Checking requirements...\n"
 for req in	\
 	jq
 do
-	which "$req" > /dev/null
-
+	command -v "$req" > /dev/null 2>&1
 	if [ $? -ne 0 ]
 	then
 		log_error	\
