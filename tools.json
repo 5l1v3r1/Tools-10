@@ -106,4 +106,16 @@
 		, "description": "Uncompresses archive (*.rpy) files with data of a game made with the engine 'RenPy'"
 		, "package": "__rpatool.sh"
 	}
+	, "rtlsdr_scanner":
+	{
+		"categories":
+		[
+			"sdr"
+			, "rtlsdr"
+			, "radio"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Python frequency scanning GUI for USB TV dongles, using the OsmoSDR rtl-sdr library."
+		, "package": "__rtlsdr_scanner.sh"
+	}
 }
