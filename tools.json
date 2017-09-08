@@ -18,7 +18,7 @@
 		"categories":
 		[
 			"binwalk"
-			, "file carving"
+			, "file-carving"
 			, "forensics"
 		]
 		, "config": {"custom":[], "default":[]}
@@ -31,7 +31,7 @@
 		[
 			"testdisk"
 			, "photorec"
-			, "file carving"
+			, "file-carving"
 			, "forensics"
 		]
 		, "config": {"custom": [], "default": []}
@@ -137,11 +137,26 @@
 		[
 			"scapy"
 			, "networking"
-			, "packet manipulation"
+			, "packet-manipulation"
 			, "interactive"
 		]
 		, "config": {"custom": [], "default": []}
 		, "description": "Interactive packet manipulation tool, written in Python"
 		, "package": "python-scapy"
+	}
+	, "j2k_to_image":
+	{
+		"categories":
+		[
+			"j2k_to_image"
+			, "jp2"
+			, "j2k"
+			, "file-conversion"
+			, "image"
+			, "utils"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Decodes j2k, jp2, and jpt files to pgm, ppm, pnm, pgx, and bmp"
+		, "package": "openjpeg-tools"
 	}
 }
