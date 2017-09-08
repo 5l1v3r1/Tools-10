@@ -120,7 +120,7 @@ parse_args ()
 
 log_info ()
 {
-	printf "${PRETTY_BLUE}$@${PRETTY_RESET}"
+	printf "$@"
 }
 
 log_error ()
