@@ -20,8 +20,12 @@ PKGS_FILE="./tools.json"
 HELP_MSG="$AUTHORS
 $LAST_MODIF_DATE
 $VERSION
-${PRETTY_RESET}
-This script is made to search tools based on their categories.
+
+This script is made to search tools based on their categories. Every new word on the
+filter is inclusive.
+That means that, when executing '$0 a b c', the results will be the union of the sets
+(all tools with category 'a' PLUS all tools with category 'b' AND all tools with
+category 'c'), not their intersection (all tools with category 'a', 'b' and 'c').
 
 Usage:
 
@@ -50,12 +54,9 @@ PRETTY_RESET=$(tput sgr0)
 
 PRETTY_RED=$(tput setaf 9)
 PRETTY_GREEN=$(tput setaf 10)
-PRETTY_YELLOW=$(tput setaf 11)
 PRETTY_BLUE=$(tput setaf 14)
 
 PRETTY_BOLD=$(tput bold)
-PRETTY_REVERSE=$(tput smso)
-PRETTY_UNDERLINE=$(tput smul)
 
 # ----
 
@@ -111,13 +112,13 @@ parse_args ()
 				shift
 				break;;
 			*)
-				log_error "$0: Unknown Error while parsing options - $1"
+				log_error "Unknown Error while parsing options - $1"
 				exit 1;;
 		esac
 	done
 
 	# Gets the positional arguments
-	filters="$@"
+	filters=$*
 }
 
 
@@ -127,17 +128,17 @@ parse_args ()
 
 log_info ()
 {
-	printf "$@"
+	printf "%b" "$*${PRETTY_RESET}"
 }
 
 log_error ()
 {
-	printf "${PRETTY_RED}$@${PRETTY_RESET}"
+	printf "Error: %b" "${PRETTY_RED}$*${PRETTY_RESET}"
 }
 
 log_success ()
 {
-	printf "${PRETTY_GREEN}$@${PRETTY_RESET}"
+	printf "%b" "${PRETTY_GREEN}$*${PRETTY_RESET}"
 }
 
 ###
@@ -151,7 +152,7 @@ show_pkg_info ()
 	[ -z "$key" ] && return 1
 
 	categ="$(jq -c ".$key.categories" "$PKGS_FILE" | \
-		tr -d "[]\"" | sed -e "s/,/ \/\/ /g")"
+		tr -d "[]\"" | sed -e "s/,/ \\/\\/ /g")"
 
 	descr="$(jq ".$key.description" "$PKGS_FILE" | \
 		tr -d \")"
@@ -160,34 +161,27 @@ show_pkg_info ()
 		tr -d \")"
 
 
-	log_info "\n********************************\n"
+	log_info "\\n********************************\\n"
 
-	log_info "=> Tool name: '%s'" \
-		"${PRETTY_BOLD}${PRETTY_RED}$key"
+	log_info "=> Tool name: '${PRETTY_BOLD}${PRETTY_RED}$key'"
 
 
 	if [ "$verbosity" -ge 1 ]
 	then
-		log_info "\n\t -> %sDescription: %s"	\
-			${PRETTY_GREEN}			\
-			"${PRETTY_BLUE}$descr"
+		log_info "\\n\\t -> ${PRETTY_GREEN}Description: ${PRETTY_BLUE}$descr"
 	fi
 
 	if [ "$verbosity" -ge 2 ]
 	then
-		log_info "\n\t -> %sCategories: %s"	\
-			${PRETTY_GREEN}			\
-			"${PRETTY_BLUE}$categ"
+		log_info "\\n\\t -> ${PRETTY_GREEN}Categories: ${PRETTY_BLUE}$categ"
 	fi
 
 	if [ "$verbosity" -ge 3 ]
 	then
-		log_info "\n\t -> %sPackage name: %s"	\
-			${PRETTY_GREEN}			\
-			"${PRETTY_BLUE}$pkg"
+		log_info "\\n\\t -> ${PRETTY_GREEN}Package name: ${PRETTY_BLUE}$pkg"
 	fi
 
-	log_info "\n----------------\n"
+	log_info "${PRETTY_RESET}\\n----------------\\n"
 	return 0
 }
 
@@ -211,7 +205,7 @@ do
 			null
 		  end
 		| select (. != null)' "$PKGS_FILE" \
-		| tr -d "\n" \
+		| tr -d "\\n" \
 		| sed -e 's/"\([^"]*\)"/ \1 /g'
 	)"
 done
@@ -221,7 +215,7 @@ for res in $results
 do
 	if "$keys_only"
 	then
-		log_info "$res\n"
+		log_info "$res\\n"
 	else
 		show_pkg_info "$res"
 	fi
