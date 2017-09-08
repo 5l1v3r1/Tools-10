@@ -54,6 +54,7 @@ PRETTY_RESET=$(tput sgr0)
 
 PRETTY_RED=$(tput setaf 9)
 PRETTY_GREEN=$(tput setaf 10)
+PRETTY_YELLOW=$(tput setaf 11)
 PRETTY_BLUE=$(tput setaf 14)
 
 PRETTY_BOLD=$(tput bold)
@@ -194,7 +195,7 @@ parse_args "$@"
 results=""
 for f in $filters
 do
-	results="$results $(jq '. as $arr
+	results="$(jq '. as $arr
 		| to_entries
 		| .[] as $idx
 		| $idx.value.categories
@@ -208,15 +209,24 @@ do
 		| tr -d "\\n" \
 		| sed -e 's/"\([^"]*\)"/ \1 /g'
 	)"
-done
 
-# Shows the results
-for res in $results
-do
-	if "$keys_only"
+
+
+	if ! "$keys_only"
 	then
-		printf "%s" "$res\\n"
-	else
-		show_pkg_info "$res"
+		test "$verbosity" -ge 1 && \
+			log_info "\\n-> Showing packages under category: " \
+				"'${PRETTY_YELLOW}$f${PRETTY_RESET}'\\n"
 	fi
+
+	# Shows the results
+	for res in $results
+	do
+		if "$keys_only"
+		then
+			printf "%s\\n" "$res"
+		else
+			show_pkg_info "$res"
+		fi
+	done
 done

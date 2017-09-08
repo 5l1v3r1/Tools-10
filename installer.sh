@@ -393,11 +393,18 @@ log_info "There are"		\
 if [ -z "$filters" ]
 then
 	# Gets the keys on a string, using ' ' as a delimiter between values
-	keys=$(jq "keys" "$PKGS_FILE" -M -S -c | tr -d "[]\"" | sed -e "s/,/ /g")
+	keys=$(jq "keys" "$PKGS_FILE" -M -S -c \
+		| tr -d "[]\"" \
+		| sed -e "s/,/ /g" \
+		| sort \
+		| uniq
+	)
 else
 	# Gets only the desired tools
-	keys="$(./search.sh -k "$filters")"
-	keys="$(printf "%b" "$keys" | sed -e "s/\n/ /g" | sort | uniq)"
+	keys=$(./search.sh -k "$filters" \
+		| sort \
+		| uniq
+	)
 
 	items="$(printf "%b" "$keys" | wc -w)"
 	log_info "After filtering, there are "	\
