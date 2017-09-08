@@ -35,6 +35,9 @@ Where 'options' may be one of the following:
 	-h
 	--help
 		Show this message and exits.
+	-k
+	--keys
+		Outputs only the found keys, one per line
 	-v
 	--verbose
 		Increases verbosity level.
@@ -61,14 +64,15 @@ PRETTY_UNDERLINE=$(tput smul)
 ###
 verbosity=0
 filters=""
+keys_only=false
 
 ####
 # Parses options
 ####
 parse_args ()
 {
-	SHORT_OPTS=f:hv
-	LONG_OPTS=file:,help,verbose
+	SHORT_OPTS=f:hkv
+	LONG_OPTS=file:,help,keys,verbose
 
 	# Checks that getopt can be used
 	getopt --test > /dev/null
@@ -96,6 +100,9 @@ parse_args ()
 				# Shows the help message and exits
 				log_info "$HELP_MSG"
 				exit 0;;
+			-k | --keys)
+				keys_only=true
+				shift ;;
 			-v | --verbose )
 				verbosity=$((verbosity + 1))
 				shift ;;
@@ -212,5 +219,10 @@ done
 # Shows the results
 for res in $results
 do
-	show_pkg_info "$res"
+	if "$keys_only"
+	then
+		log_info "$res\n"
+	else
+		show_pkg_info "$res"
+	fi
 done
