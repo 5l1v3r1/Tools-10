@@ -3,7 +3,8 @@
 	{
 		"categories":
 		[
-			"utils"
+			"jq"
+			, "utils"
 			, "json"
 			, "parser"
 			, "cli"
@@ -16,7 +17,8 @@
 	{
 		"categories":
 		[
-			"file carving"
+			"binwalk"
+			, "file carving"
 			, "forensics"
 		]
 		, "config": {"custom":[], "default":[]}
@@ -27,7 +29,9 @@
 	{
 		"categories":
 		[
-			"file carving"
+			"testdisk"
+			, "photorec"
+			, "file carving"
 			, "forensics"
 		]
 		, "config": {"custom": [], "default": []}
@@ -38,7 +42,8 @@
 	{
 		"categories":
 		[
-			"forensics"
+			"volatility"
+			, "forensics"
 			, "framework"
 		]
 		, "config": {"custom": [], "default": []}
@@ -49,7 +54,8 @@
 	{
 		"categories":
 		[
-			"steganography"
+			"steghide"
+			, "steganography"
 			, "stego"
 		]
 		, "config": {"custom": [], "default": []}
@@ -60,7 +66,8 @@
 	{
 		"categories":
 		[
-			"steganography"
+			"stegsolve"
+			, "steganography"
 			, "steganoanalysis"
 			, "stego"
 		]
@@ -72,7 +79,9 @@
 	{
 		"categories":
 		[
-			"utils"
+			"ctags"
+			, "universal-ctags"
+			, "utils"
 			, "cli"
 			, "programming"
 		]
@@ -84,7 +93,9 @@
 	{
 		"categories":
 		[
-			"utils"
+			"zbarimg"
+			, "zbar-tools"
+			, "utils"
 			, "image"
 			, "parser"
 			, "qr"
@@ -99,7 +110,8 @@
 	{
 		"categories":
 		[
-			"forensics"
+			"rpatool"
+			, "forensics"
 			, "renpy"
 		]
 		, "config": {"custom": [], "default": []}
@@ -110,7 +122,8 @@
 	{
 		"categories":
 		[
-			"sdr"
+			"rtlsdr_scanner"
+			, "sdr"
 			, "rtlsdr"
 			, "radio"
 		]
@@ -122,7 +135,8 @@
 	{
 		"categories":
 		[
-			"networking"
+			"scapy"
+			, "networking"
 			, "packet manipulation"
 			, "interactive"
 		]
