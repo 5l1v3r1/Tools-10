@@ -133,7 +133,7 @@ log_info ()
 
 log_error ()
 {
-	printf "Error: %b" "${PRETTY_RED}$*${PRETTY_RESET}"
+	printf "%b" "${PRETTY_RED}Error: $*${PRETTY_RESET}"
 }
 
 log_success ()
