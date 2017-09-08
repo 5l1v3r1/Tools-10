@@ -9,6 +9,7 @@ VERSION="v1.0"
 #
 # Requires:
 #	jq
+#	./search.sh
 ####
 
 
@@ -27,9 +28,10 @@ This script is made to help to install the tools present on the file.
 
 Usage:
 
-$0 [options]
+$0 [options] <filters>
 
-Where 'options' may be one of the following:
+Where 'filters' is a list with categories to get only a subset of the tools 'options'
+may be one of the following:
 	-d
 	--dir
 		 Directory to search for custom installers.
@@ -46,8 +48,6 @@ Where 'options' may be one of the following:
 		Uninstalls the packages, instead of installing them.
 "
 
-UNINSTALL=false
-
 ###
 # Colours and formats to prettify the output
 #
@@ -62,6 +62,9 @@ PRETTY_BOLD=$(tput bold)
 PRETTY_UNDERLINE=$(tput smul)
 
 # ----
+
+UNINSTALL=false
+filters=""
 
 ####
 # Parses options
@@ -130,6 +133,9 @@ parse_args ()
 				exit 1;;
 		esac
 	done
+
+	# Gets the positional arguments
+	filters=$*
 }
 
 
@@ -346,7 +352,8 @@ errors=0
 log_info "\\n --> Checking requirements...\\n"
 
 for req in	\
-	jq
+	jq	\
+	./search.sh
 do
 	if ! command -v "$req" > /dev/null 2>&1
 	then
@@ -383,8 +390,22 @@ log_info "There are"		\
 	"${PRETTY_BLUE}"	\
 	"in '$PKGS_FILE'\\n"
 
-# Gets the keys on a string, using ' ' as a delimiter between values
-keys=$(jq "keys" "$PKGS_FILE" -M -S -c | tr -d "[]" | sed -e "s/,/ /g")
+if [ -z "$filters" ]
+then
+	# Gets the keys on a string, using ' ' as a delimiter between values
+	keys=$(jq "keys" "$PKGS_FILE" -M -S -c | tr -d "[]" | sed -e "s/,/ /g")
+else
+	# Gets only the desired tools
+	keys="$(./search.sh -k "$filters")"
+	keys="$(printf "%b" "$keys" | sed -e "s/\n/ /g")"
+
+	items="$(printf "%b" "$keys" | wc -w)"
+	log_info "After filtering, there are "	\
+		"${PRETTY_YELLOW}"	\
+		"$items items"		\
+		"${PRETTY_BLUE}"	\
+		"to be installed\\n"
+fi
 
 all=false
 quit=false
@@ -398,6 +419,10 @@ fi
 
 for k in $keys
 do
+	# Skips the empty strings and those packages that (somehow) present a problem
+	# when showing their info (maybe because of malformed JSON)
+	test -z "$k" && continue
+	test "$(expr "$k" : "^[ \\r\\n\\t]*$")" -gt 0 && continue
 	! show_pkg_info "$k" && continue
 
 	if ! $all
@@ -443,4 +468,3 @@ do
 
 	$quit && break;
 done
-

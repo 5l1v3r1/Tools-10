@@ -215,7 +215,7 @@ for res in $results
 do
 	if "$keys_only"
 	then
-		log_info "$res\\n"
+		printf "%s" "$res\\n"
 	else
 		show_pkg_info "$res"
 	fi
