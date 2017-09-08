@@ -4,4 +4,4 @@ FILENAME="rpatool"
 
 DESTINATION="/usr/local/bin/$FILENAME"
 
-rm -fv "$DESTINATION"
+sudo rm -fv "$DESTINATION"
