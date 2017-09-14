@@ -159,4 +159,28 @@
 		, "description": "Decodes j2k, jp2, and jpt files to pgm, ppm, pnm, pgx, and bmp"
 		, "package": "openjpeg-tools"
 	}
+	, "progress":
+	{
+		"categories":
+		[
+			"progress"
+			, "utils"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Shows the progress of currently running file manipulation processes (tar, cp, mv, cat, grep...)"
+		, "package": "progress"
+	}
+	, "pdftk":
+	{
+		"categories":
+		[
+			"pdftk"
+			, "pdf"
+			, "utils"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Allows manipulating PDFs (merging, spliting, unpacking attachments...)"
+		, "package": "pdftk"
+	}
+
 }
