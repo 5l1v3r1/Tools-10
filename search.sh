@@ -164,7 +164,8 @@ show_pkg_info ()
 
 	log_info "\\n********************************\\n"
 
-	log_info "=> Tool name: '${PRETTY_BOLD}${PRETTY_RED}$key'"
+	log_info "=> Tool name: '${PRETTY_BOLD}${PRETTY_RED}$key"
+	log_info "'"
 
 
 	if [ "$verbosity" -ge 1 ]

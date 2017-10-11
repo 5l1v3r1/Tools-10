@@ -33,6 +33,7 @@
 			, "photorec"
 			, "file-carving"
 			, "forensics"
+			, "disc-image"
 		]
 		, "config": {"custom": [], "default": []}
 		, "description": "Tool to recover lost files from harddisk, digital camera and cdrom"
@@ -44,10 +45,11 @@
 		[
 			"volatility"
 			, "forensics"
+			, "ram-image"
 			, "framework"
 		]
 		, "config": {"custom": [], "default": []}
-		, "description": "Memory forensics framework with multiple tools to perform various tasks, like extracting the process list (with pstree), dump DLLs of a process (with dlldump)... "
+		, "description": "Memory forensics framework with multiple plugins to extract information from a RAM image"
 		, "package": "volatility"
 	}
 	, "steghide":
@@ -181,6 +183,22 @@
 		, "config": {"custom": [], "default": []}
 		, "description": "Allows manipulating PDFs (merging, spliting, unpacking attachments...)"
 		, "package": "pdftk"
+	}
+	, "autopsy":
+	{
+		"categories":
+		[
+			"autopsy"
+			, "browser"
+			, "sleuthkit"
+			, "thesleuthkit"
+			, "tsk"
+			, "forensics"
+			, "disc-image"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Autopsy forensic browser. Starts a server and allows to analyze evidences (such as disc images)"
+		, "package": "autopsy"
 	}
 
 }
