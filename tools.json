@@ -200,5 +200,17 @@
 		, "description": "Autopsy forensic browser. Starts a server and allows to analyze evidences (such as disc images)"
 		, "package": "autopsy"
 	}
-
+	, "yafu":
+	{
+		"categories":
+		[
+			"yafu"
+			, "factorisation"
+			, "rsa"
+			, "crypto"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Yet Another Factor Utility. Useful to factor large integers in a quick manner"
+		, "package": "__yafu.sh"
+	}
 }
