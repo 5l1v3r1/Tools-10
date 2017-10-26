@@ -29,7 +29,6 @@ Plugin 'ervandew/supertab'
 
 " NERDTree - Explorador de archivos (y más cositas chulas)
 Plugin 'scrooloose/nerdtree'
-"Plugin 'Xuyuanp/nerdtree-git-plugin' " Plugin para mostrar el estado de GIT en NERDTree
 
 " Depuración de código
 Plugin 'idanarye/vim-vebugger'
@@ -37,11 +36,21 @@ Plugin 'idanarye/vim-vebugger'
 " Muestra las etiquetas sacadas con ctags
 Plugin 'majutsushi/tagbar'
 
+" Explorador de archivos/buffers y más cosas útiles
+Plugin 'wincent/command-t'
+
+" Muestra los buffers abiertos en la zona inferior de la pantalla
+Plugin 'bling/vim-bufferline'
+
+" Línea de estado modificada para mostrar más información
+Plugin 'bling/vim-airline'
 
 """""""""""""
 " Lenguajes "
 """""""""""""
 
+" Mayor soporte para distintos lenguajes
+Plugin 'sheerun/vim-polyglot'
 
 """"
 " Scala
@@ -81,7 +90,7 @@ Plugin 'vim-scripts/HTML-AutoCloseTag'
 """"
 " Android
 "
-Plugin 'hsanson/vim-android'
+"Plugin 'hsanson/vim-android'
 
 
 " All of your Plugins must be added before the following line
@@ -111,7 +120,11 @@ filetype plugin on
 """""""""""
 
 " Modifica el comportamiento del tabulador
-autocmd BufRead,BufNewFile *.html,*.htm,*.css,*.scss set tabstop=4
+" en:
+" HTML / HTM
+" CSS, SCSS
+" Kivy
+autocmd BufRead,BufNewFile *.html,*.htm,*.css,*.scss,*.kv set tabstop=4
 
 " Muestra los espacios no deseados (al final de línea o antes de una tabulación)
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
@@ -119,13 +132,13 @@ match ExtraWhitespace /\s\+$\| \+\ze\t/
 
 " Coloreado de sintaxis para GAS (ensamlador de GNU - sintaxis AT&T)
 augroup filetype
-   au BufRead,BufNewFile *.s,*.s    set filetype=gas
+	au BufRead,BufNewFile *.s,*.s    set filetype=gas
 augroup END
 au Syntax gas    so ~/.vim/syntax/gas.vim
 
 " Coloreado de sintaxis para CUP
 augroup filetype
-   au BufRead,BufNewFile *.cup,*.cup    set filetype=cup
+	au BufRead,BufNewFile *.cup,*.cup    set filetype=cup
 augroup END
 au Syntax cup    so ~/.vim/syntax/cup.vim
 
@@ -157,7 +170,7 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 
 " Localización de libClang para el autocompletado semántico
-let g:clang_library_path="/usr/lib/llvm-3.8/lib/libclang.so.1"
+let g:clang_library_path = "/usr/lib/llvm-3.8/lib/libclang.so.1"
 
 " Mapea ^X ^O a ^espacio (autocompletado)
 inoremap <C-Space> <C-x><C-o>
@@ -178,12 +191,35 @@ autocmd BufEnter * nested :call tagbar#autoopen(0)
 set tags+=tags;/
 
 """"
+" Configuración de Command-T
+"
+
+" Remapeado para que '\b' no pise al mapeado de JavaGetSet
+nmap <silent> <Leader>n <Plug>(CommandTBuffer)
+" No ignora los espacios en blanco en el nombre de archivo
+let g:CommandTIgnoreSpaces = 0
+" Muestra los resultados en orden descendente
+let g:CommandTMatchWindowReverse = 0
+
+let g:CommandTCancelMap = ['<C-x>', '<C-c>']
+
+"""
+" Configuración de bufferline
+"
+
+" No muestra la información en la línea de comandos
+let g:bufferline_echo = 0
+" Cambia los indicadores del buffer activo
+let g:bufferline_active_buffer_left = '|'
+let g:bufferline_active_buffer_right = '|'
+
+""""
 " Actualiza las etiquetas del proyecto
 """"
 autocmd BufWritePost *
-      \ if filereadable('tags') |
-      \   call system('ctags -a '.expand('%')) |
-      \ endif
+	\ if filereadable('tags') |
+	\   call system('ctags -a '.expand('%')) |
+	\ endif
 
 " Establece el archivo de configuración para YCM
 let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py"
@@ -193,26 +229,26 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/
 """"
 command! -nargs=1 Definiciones call s:Definiciones(<f-args>)
 function! s:Definiciones(name)
-  " Retrieve tags of the f kind
-  let tags = taglist('^'.a:name)
-  let tags = filter(tags, 'v:val["kind"] == "f"')
+	" Retrieve tags of the f kind
+	let tags = taglist('^'.a:name)
+	let tags = filter(tags, 'v:val["kind"] == "f"')
 
-  " Prepare them for inserting in the quickfix window
-  let qf_taglist = []
-  for entry in tags
-    call add(qf_taglist, {
-          \ 'pattern':  entry['cmd'],
-          \ 'filename': entry['filename'],
-          \ })
-  endfor
+	" Prepare them for inserting in the quickfix window
+	let qf_taglist = []
+	for entry in tags
+		call add(qf_taglist, {
+				\ 'pattern':  entry['cmd'],
+				\ 'filename': entry['filename'],
+		\ })
+	endfor
 
-  " Place the tags in the quickfix window, if possible
-  if len(qf_taglist) > 0
-    call setqflist(qf_taglist)
-    copen
-  else
-    echo "No tags found for ".a:name
-  endif
+	" Place the tags in the quickfix window, if possible
+	if len(qf_taglist) > 0
+		call setqflist(qf_taglist)
+		copen
+	else
+		echo "No tags found for ".a:name
+	endif
 endfunction
 
 
@@ -226,13 +262,11 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " Configuración del soporte para Android
 """"
 "let g:gradle_path = ''
-"let g:android_sdk_path = ''
+let g:android_sdk_path = ''
 
 """
-" Deshabilita la columna de color para los archivos de texto plano (Markdown,
-" JSON...)
+" Deshabilita la columna de color para los archivos de texto plano (JSON...)
 """
-autocmd FileType markdown set colorcolumn=
 autocmd FileType json set colorcolumn=
 
 
