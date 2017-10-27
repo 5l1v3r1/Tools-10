@@ -202,6 +202,7 @@ let g:CommandTIgnoreSpaces = 0
 let g:CommandTMatchWindowReverse = 0
 
 let g:CommandTCancelMap = ['<C-x>', '<C-c>']
+let g:CommandTAcceptSelectionMap = '<CR>'
 
 """
 " Configuración de bufferline
@@ -262,7 +263,7 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " Configuración del soporte para Android
 """"
 "let g:gradle_path = ''
-let g:android_sdk_path = ''
+"let g:android_sdk_path = ''
 
 """
 " Deshabilita la columna de color para los archivos de texto plano (JSON...)
