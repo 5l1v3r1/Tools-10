@@ -213,4 +213,18 @@
 		, "description": "Yet Another Factor Utility. Useful to factor large integers in a quick manner"
 		, "package": "__yafu.sh"
 	}
+	, "inspectrum":
+	{
+		"categories":
+		[
+			"inspectrum"
+			, "radio"
+			, "sdr"
+			, "waterfall"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Waterfall inspector for captured radio signals"
+		, "package": "inspectrum"
+	}
+
 }
