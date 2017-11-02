@@ -226,5 +226,17 @@
 		, "description": "Waterfall inspector for captured radio signals"
 		, "package": "inspectrum"
 	}
-
+	, "nikto":
+	{
+		"categories":
+		[
+			"nikto"
+			, "web-scanner"
+			, "pentesting"
+			, "reconnaisance"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Scan web server for known vulnerabilities"
+		, "package": "nikto"
+	}
 }
