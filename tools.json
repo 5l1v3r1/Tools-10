@@ -233,7 +233,6 @@
 			"nikto"
 			, "web-scanner"
 			, "pentesting"
-			, "reconnaisance"
 		]
 		, "config": {"custom": [], "default": []}
 		, "description": "Scan web server for known vulnerabilities"
