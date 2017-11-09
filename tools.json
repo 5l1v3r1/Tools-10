@@ -248,4 +248,17 @@
 		, "description": "Steganography tool, with capabilities to perform statistical analysis"
 		, "package": "outguess"
 	}
+	, "xsel":
+	{
+		"categories":
+		[
+			"xsel"
+			, "clipboard"
+			, "utils"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Manipulate the X selection, like copying something to the clipboard or emptying it"
+		, "package": "xsel"
+	}
+
 }
