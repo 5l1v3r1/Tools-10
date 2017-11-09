@@ -58,7 +58,6 @@
 		[
 			"steghide"
 			, "steganography"
-			, "stego"
 		]
 		, "config": {"custom": [], "default": []}
 		, "description": "Program to extract or embed data in another file, hiding it (thus the name 'steghide')"
@@ -71,7 +70,6 @@
 			"stegsolve"
 			, "steganography"
 			, "steganoanalysis"
-			, "stego"
 		]
 		, "config": {"custom": [], "default": []}
 		, "description": "Tool to perform different analysis on a file to determine if there's hidden data on it, and recover it"
@@ -237,5 +235,17 @@
 		, "config": {"custom": [], "default": []}
 		, "description": "Scan web server for known vulnerabilities"
 		, "package": "nikto"
+	}
+	, "outguess":
+	{
+		"categories":
+		[
+			"outguess"
+			, "steganography"
+			, "stegoanalysis"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Steganography tool, with capabilities to perform statistical analysis"
+		, "package": "outguess"
 	}
 }
