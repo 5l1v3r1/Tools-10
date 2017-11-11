@@ -260,5 +260,19 @@
 		, "description": "Manipulate the X selection, like copying something to the clipboard or emptying it"
 		, "package": "xsel"
 	}
-
+	, "guestmount":
+	{
+		"categories":
+		[
+			"mountguess"
+			, "virtualbox"
+			, "vmdk"
+			, "virtual-hard-disk"
+			, "filesystem"
+			, "utils"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Mounts virtual hard disks (like VMDKs) to examine their content without creating and booting a virtual machine"
+		, "package": "libguestfs-tools"
+	}
 }
