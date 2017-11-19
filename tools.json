@@ -272,7 +272,20 @@
 			, "utils"
 		]
 		, "config": {"custom": [], "default": []}
-		, "description": "Mounts virtual hard disks (like VMDKs) to examine their content without creating and booting a virtual machine"
+		, "description": "Mount virtual hard disks (like VMDKs) to examine their content without creating and booting a virtual machine"
 		, "package": "libguestfs-tools"
 	}
+	, "kazam":
+	{
+		"categories":
+		[
+			"kazam"
+			, "screen-recorder"
+			, "utils"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Screen recorder"
+		, "package": "kazam"
+	}
+
 }
