@@ -287,5 +287,17 @@
 		, "description": "Screen recorder"
 		, "package": "kazam"
 	}
+	, "kdenlive":
+	{
+		"categories":
+		[
+			"kdenlive"
+			, "video-editor"
+			, "utils"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Video editor"
+		, "package": "__kdenlive.sh"
+	}
 
 }
