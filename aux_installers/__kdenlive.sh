@@ -1,13 +1,21 @@
 #!/bin/sh
 
 PPA="ppa:kdenlive/kdenlive-stable"
+PKG="kdenlive"
 
-# Adds kdenlive's PPA, and then updates and installs
-if sudo add-apt-repository "$PPA"
+# Checks if the PPA has already been added
+if ! grep -q "^deb .*$PKG" /etc/apt/sources.list /etc/apt/sources.list.d/*
 then
-	sudo apt-get update
-	sudo apt-get install kdenlive
-	return "$?"
+	# Adds kdenlive's PPA, and then updates and installs
+	if sudo add-apt-repository "$PPA"
+	then
+		sudo apt-get update
+		sudo apt-get install "$PKG"
+		return $?
+	else
+		return 1
+	fi
 else
-	return 1
+	sudo apt-get install "$PKG"
+	return $?
 fi
