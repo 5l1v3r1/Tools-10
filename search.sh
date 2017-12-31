@@ -15,7 +15,10 @@ VERSION="v1.0"
 ###
 # Global variables
 ###
-PKGS_FILE="./tools.json"
+SCRIPT_LOCATION="$(readlink -f $0)"
+SCRIPT_DIR="$(dirname $SCRIPT_LOCATION)"
+
+PKGS_FILE="${SCRIPT_DIR}/tools.json"
 
 HELP_MSG="$AUTHORS
 $LAST_MODIF_DATE
