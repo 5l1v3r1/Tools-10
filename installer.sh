@@ -16,9 +16,12 @@ VERSION="v1.0"
 ###
 # Global variables
 ###
-PKGS_FILE="./tools.json"
-INSTALLERS_DIR="./aux_installers"
-UNINSTALLERS_DIR="./aux_uninstallers"
+SCRIPT_LOCATION="$(readlink -f $0)"
+SCRIPT_DIR="$(dirname $SCRIPT_LOCATION)"
+
+PKGS_FILE="${SCRIPT_DIR}/tools.json"
+INSTALLERS_DIR="${SCRIPT_DIR}/aux_installers"
+UNINSTALLERS_DIR="${SCRIPT_DIR}/aux_uninstallers"
 
 HELP_MSG="$AUTHORS
 $LAST_MODIF_DATE
@@ -353,7 +356,7 @@ log_info "\\n --> Checking requirements...\\n"
 
 for req in	\
 	jq	\
-	./search.sh
+	${SCRIPT_DIR}/search.sh
 do
 	if ! command -v "$req" > /dev/null 2>&1
 	then
