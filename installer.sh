@@ -34,11 +34,11 @@ Where 'filters' is a list with categories to get only a subset of the tools 'opt
 may be one of the following:
 	-d
 	--dir
-		 Directory to search for custom installers.
+		Directory to search for custom installers.
 		Defaults to '$INSTALLERS_DIR'.
 	-f
 	--file
-		 File in JSON format with the tools information.
+		File in JSON format with the tools information.
 		Defaults to '$PKGS_FILE'.
 	-h
 	--help
@@ -85,7 +85,7 @@ parse_args ()
 
 	# Guarda el resultado para manejar correctamente los errores
 	opts=$(getopt --options $SHORT_OPTS --longoptions $LONG_OPTS \
-		 --name "$0" -- "$@") || exit 1
+		--name "$0" -- "$@") || exit 1
 
 	eval set -- "$opts"
 
@@ -237,15 +237,15 @@ uninstall_pkg ()
 			if ! sh "$file"
 			then
 				log_error "\\n ==> The package couldn't be removed: "\
-					 "${PRETTY_UNDERLINE}$pkg"
+						"${PRETTY_UNDERLINE}$pkg"
 
 			else
 				log_success "\\n ==> Package uninstalled: " \
-					 "${PRETTY_YELLOW}$pkg"
+						"${PRETTY_YELLOW}$pkg"
 			fi
 		else
 			log_error "\\n ==> No available method to uninstall package " \
-					 "${PRETTY_UNDERLINE}$pkg"
+						"${PRETTY_UNDERLINE}$pkg"
 		fi
 	# Uses aptitude
 	else
@@ -255,11 +255,11 @@ uninstall_pkg ()
 		if ! sudo apt-get remove --yes --show-progress "$pkg" # --simulate
 		then
 			log_error "\\n ==> The package couldn't be uninstalled: "\
-				 "${PRETTY_UNDERLINE}$pkg"
+					"${PRETTY_UNDERLINE}$pkg"
 
 		else
 			log_success "\\n ==> Package uninstalled: " \
-				 "${PRETTY_YELLOW}$pkg"
+					"${PRETTY_YELLOW}$pkg"
 		fi
 	fi
 
@@ -310,15 +310,15 @@ install_pkg ()
 			if ! sh "$file"
 			then
 				log_error "\\n ==> The package couldn't be installed: "\
-					 "${PRETTY_UNDERLINE}$pkg"
+						"${PRETTY_UNDERLINE}$pkg"
 
 			else
 				log_success "\\n ==> Package installed: " \
-					 "${PRETTY_YELLOW}$pkg"
+						"${PRETTY_YELLOW}$pkg"
 			fi
 		else
 			log_error "\\n ==> No available method to install package " \
-					 "${PRETTY_UNDERLINE}$pkg"
+						"${PRETTY_UNDERLINE}$pkg"
 		fi
 	# Uses aptitude
 	else
@@ -328,11 +328,11 @@ install_pkg ()
 		if ! sudo apt-get install --yes --show-progress "$pkg" #--simulate
 		then
 			log_error "\\n ==> The package couldn't be installed: "\
-				 "${PRETTY_UNDERLINE}$pkg"
+					"${PRETTY_UNDERLINE}$pkg"
 
 		else
 			log_success "\\n ==> Package installed: " \
-				 "${PRETTY_YELLOW}$pkg"
+					"${PRETTY_YELLOW}$pkg"
 		fi
 	fi
 
