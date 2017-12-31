@@ -34,7 +34,7 @@ $0 [options] <filters>
 Where 'options' may be one of the following:
 	-f
 	--file
-		 File in JSON format with the tools information.
+		File in JSON format with the tools information.
 		Defaults to '$PKGS_FILE'.
 	-h
 	--help
@@ -87,7 +87,7 @@ parse_args ()
 
 	# Guarda el resultado para manejar correctamente los errores
 	opts=$(getopt --options $SHORT_OPTS --longoptions $LONG_OPTS \
-		 --name "$0" -- "$@") || exit 1
+		--name "$0" -- "$@") || exit 1
 
 	eval set -- "$opts"
 
@@ -201,11 +201,11 @@ do
 		| .[] as $idx
 		| $idx.value.categories
 		| if contains (["'"$f"'"])
-		  then
+		then
 			$idx.key
-		  else
+		else
 			null
-		  end
+		end
 		| select (. != null)' "$PKGS_FILE" \
 		| tr -d "\\n" \
 		| sed -e 's/"\([^"]*\)"/ \1 /g'
