@@ -299,5 +299,18 @@
 		, "description": "Video editor"
 		, "package": "__kdenlive.sh"
 	}
+	, "sonic-visualiser":
+	{
+		"categories":
+		[
+			"sonic-visualiser"
+			, "audio-editor"
+			, "spectrogram"
+			, "utils"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Audio editor, with a better spectrogram viewer than Audacity's"
+		, "package": "sonic-visualiser"
+	}
 
 }
