@@ -115,11 +115,13 @@ filetype plugin on    " required
 """"
 filetype plugin on
 
+set hidden
+
 """""""""""
 " Estilos "
 """""""""""
 
-" Modifica el comportamiento del tabulador
+" Modifica la indentación con el tabulador
 " en:
 " HTML / HTM
 " CSS, SCSS
