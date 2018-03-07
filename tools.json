@@ -312,5 +312,17 @@
 		, "description": "Audio editor, with a better spectrogram viewer than Audacity's"
 		, "package": "sonic-visualiser"
 	}
-
+	, "pdfgrep":
+	{
+		"categories":
+		[
+			"pdfgrep"
+			, "grep"
+			, "pattern-search"
+			, "utils"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Grep-like tool to search patterns inside a PDF document"
+		, "package": "pdfgrep"
+	}
 }
