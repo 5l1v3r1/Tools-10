@@ -339,4 +339,17 @@
 		, "description": "Python framework to easily write custom Maltego transforms"
 		, "package": "__canari.sh"
 	}
+	, "pdfgrep":
+	{
+		"categories":
+		[
+			"pdfgrep"
+			, "grep"
+			, "pattern-search"
+			, "utils"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Grep-like tool to search patterns inside a PDF document"
+		, "package": "pdfgrep"
+	}
 }
