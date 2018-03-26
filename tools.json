@@ -312,5 +312,31 @@
 		, "description": "Audio editor, with a better spectrogram viewer than Audacity's"
 		, "package": "sonic-visualiser"
 	}
-
+	, "maltego":
+	{
+		"categories":
+		[
+			"maltego"
+			, "osint"
+			, "intelligence"
+			, "forensics"
+			, "framework"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Framework for OSINT analysis"
+		, "package": "__osint.sh"
+	}
+	, "canari":
+	{
+		"categories":
+		[
+			"canari"
+			, "maltego"
+			, "osint"
+			, "python-framework"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Python framework to easily write custom Maltego transforms"
+		, "package": "__canari.sh"
+	}
 }
