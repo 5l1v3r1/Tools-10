@@ -78,19 +78,16 @@ Plugin 'Xe/lolcode.vim'
 "
 " Añade getters/setters en Java (:InsertBothGetterSetter, :InsertGetterOnly...)
 Plugin 'vim-scripts/java_getset.vim'
-Plugin 'artur-shaik/vim-javacomplete2'
+" Resalta los 'import' sin usar (:UnusedImports, :UnusedImportsRemove...)
+Plugin 'akhaku/vim-java-unused-imports'
+" Funcionalidades varias para los 'import'
+Plugin 'rustushki/JavaImp.vim'
 
 """"
 " HTML
 "
 " Cierre automático de etiquetas para HTML y XML
 Plugin 'vim-scripts/HTML-AutoCloseTag'
-
-
-""""
-" Android
-"
-"Plugin 'hsanson/vim-android'
 
 
 " All of your Plugins must be added before the following line
@@ -261,19 +258,6 @@ function! s:Definiciones(name)
 	endif
 endfunction
 
-
-""""
-" Configuración del soporte para Java
-"""
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-
-
-""""
-" Configuración del soporte para Android
-""""
-"let g:gradle_path = ''
-"let g:android_sdk_path = ''
-
 """
 " Deshabilita la columna de color para los archivos de texto plano (JSON...)
 """
@@ -286,7 +270,7 @@ autocmd FileType json set colorcolumn=
 let b:thisdir=expand("%:p:h")
 let b:vim=b:thisdir."/.vim.custom"
 if (filereadable(b:vim))
-	execute "source ".b:vim
+	execute "source ".fnameescape(b:vim)
 endif
 
 " Lo archivos de tipo .vim.custom deben tener la misma sintaxis que la de .vimrc
