@@ -158,7 +158,7 @@ highlight ColorColumn ctermbg=darkgray
 "
 
 " Lenguajes para los que se desactiva Polyglot
-let g:polyglot_disabled = ['python']
+let g:polyglot_disabled = ['python', 'latex']
 
 " Compatibilidad de UltiSnips y YouCompleteMe mediante SuperTab
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
