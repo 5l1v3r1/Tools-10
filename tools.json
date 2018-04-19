@@ -352,4 +352,17 @@
 		, "description": "Grep-like tool to search patterns inside a PDF document"
 		, "package": "pdfgrep"
 	}
+	, "multimon-ng":
+	{
+		"categories":
+		[
+			"multimon-ng"
+			, "sdr"
+			, "digital-protocol-decoder"
+			, ""
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Decoder for multiple digital radio transmission modes"
+		, "package": "__multimon-ng.sh"
+	}
 }
