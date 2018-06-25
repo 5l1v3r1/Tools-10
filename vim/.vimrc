@@ -1,3 +1,5 @@
+syntax on
+
 """"
 " Sección para Vundle
 """"
@@ -78,6 +80,7 @@ Plugin 'Xe/lolcode.vim'
 "
 " Añade getters/setters en Java (:InsertBothGetterSetter, :InsertGetterOnly...)
 Plugin 'vim-scripts/java_getset.vim'
+"Plugin 'artur-shaik/vim-javacomplete2'
 " Resalta los 'import' sin usar (:UnusedImports, :UnusedImportsRemove...)
 Plugin 'akhaku/vim-java-unused-imports'
 " Funcionalidades varias para los 'import'
@@ -128,6 +131,10 @@ autocmd BufRead,BufNewFile *.html,*.htm,*.css,*.scss,*.kv set tabstop=4
 " Muestra los espacios no deseados (al final de línea o antes de una tabulación)
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 match ExtraWhitespace /\s\+$\| \+\ze\t/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$\| \+\ze\t/
+"autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$\| \+\ze\t/
+autocmd BufWinLeave * call clearmatches()
 
 " Coloreado de sintaxis para GAS (ensamlador de GNU - sintaxis AT&T)
 augroup filetype
