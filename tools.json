@@ -359,10 +359,23 @@
 			"multimon-ng"
 			, "sdr"
 			, "digital-protocol-decoder"
-			, ""
 		]
 		, "config": {"custom": [], "default": []}
 		, "description": "Decoder for multiple digital radio transmission modes"
 		, "package": "__multimon-ng.sh"
 	}
+	, "jadx":
+	{
+		"categories":
+		[
+			"jadx"
+			, "reversing"
+			, "java-decompiler"
+			, "dex-to-java"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Dex to Java decompiler"
+		, "package": "__jadx.sh"
+	}
+
 }
