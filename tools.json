@@ -377,5 +377,28 @@
 		, "description": "Dex to Java decompiler"
 		, "package": "__jadx.sh"
 	}
-
+	, "scalpel":
+	{
+		"categories":
+		[
+			"scalpel"
+			, "forensics"
+			, "file-carving"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Utility to find hidden files within other files, based on headers/footers (magic bytes), based on Foremost"
+		, "package": "scalpel"
+	}
+	, "foremost":
+	{
+		"categories":
+		[
+			"foremost"
+			, "forensics"
+			, "file-carving"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Utility to find hidden files within other files, based on headers/footers (magic bytes)"
+		, "package": "foremost"
+	}
 }
