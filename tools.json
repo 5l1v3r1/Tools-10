@@ -58,6 +58,7 @@
 		[
 			"steghide"
 			, "steganography"
+			, "stegoanalysis"
 		]
 		, "config": {"custom": [], "default": []}
 		, "description": "Program to extract or embed data in another file, hiding it (thus the name 'steghide')"
@@ -400,5 +401,18 @@
 		, "config": {"custom": [], "default": []}
 		, "description": "Utility to find hidden files within other files, based on headers/footers (magic bytes)"
 		, "package": "foremost"
+	}
+	, "zsteg":
+	{
+		"categories":
+		[
+			"zsteg"
+			, "steganography"
+			, "stegoanalysis"
+			, "ruby"
+		]
+		, "config": {"custom": [], "default": []}
+		, "description": "Stegoanalysis tool written in Ruby, which performs some basic tests (LSB, OpenStego...). Old (2014), but gold"
+		, "package": "__zsteg.sh"
 	}
 }
