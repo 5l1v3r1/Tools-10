@@ -51,7 +51,7 @@ Plugin 'bling/vim-airline'
 " Lenguajes "
 """""""""""""
 
-" Mayor soporte para distintos lenguajes
+" Mejor soporte para distintos lenguajes
 Plugin 'sheerun/vim-polyglot'
 
 """"
@@ -78,13 +78,14 @@ Plugin 'Xe/lolcode.vim'
 """"
 " Java
 "
+"Plugin 'artur-shaik/vim-javacomplete2'
 " Añade getters/setters en Java (:InsertBothGetterSetter, :InsertGetterOnly...)
 Plugin 'vim-scripts/java_getset.vim'
-"Plugin 'artur-shaik/vim-javacomplete2'
 " Resalta los 'import' sin usar (:UnusedImports, :UnusedImportsRemove...)
 Plugin 'akhaku/vim-java-unused-imports'
 " Funcionalidades varias para los 'import'
 Plugin 'rustushki/JavaImp.vim'
+
 
 """"
 " HTML
@@ -227,6 +228,7 @@ let g:bufferline_echo = 0
 let g:bufferline_active_buffer_left = '|'
 let g:bufferline_active_buffer_right = '|'
 
+
 """"
 " Actualiza las etiquetas del proyecto
 """"
@@ -237,6 +239,7 @@ autocmd BufWritePost *
 
 " Establece el archivo de configuración para YCM
 let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py"
+
 
 """"
 " Orden para mostrar todas las declaraciones de una función (requiere ctags)
@@ -265,20 +268,47 @@ function! s:Definiciones(name)
 	endif
 endfunction
 
+
 """
 " Deshabilita la columna de color para los archivos de texto plano (JSON...)
 """
 autocmd FileType json set colorcolumn=
 
+" Los archivos de tipo .vim.custom deben tener la misma sintaxis que la de .vimrc
+autocmd BufRead,BufNewFile .vim.custom set syntax=vim
 
 """
 " Busca ficheros de configuración específicos para proyectos
 """
-let b:thisdir=expand("%:p:h")
-let b:vim=b:thisdir."/.vim.custom"
-if (filereadable(b:vim))
-	execute "source ".fnameescape(b:vim)
-endif
 
-" Lo archivos de tipo .vim.custom deben tener la misma sintaxis que la de .vimrc
-autocmd BufRead,BufNewFile .vim.custom set syntax=vim
+""""
+" Sacado de: https://vi.stackexchange.com/a/3152
+"
+" Search for any .vimsettings files in the path to the file.
+" Source them if you find them.
+function! ApplyLocalSettings(dirname)
+	" Don't try to walk a remote directory tree -- takes too long, too many
+	" what if's
+	let l:netrwProtocol = strpart(a:dirname, 0, stridx(a:dirname, "://"))
+	if l:netrwProtocol != ""
+		return
+	endif
+
+	let l:curDir = a:dirname
+	let l:parentDir = strpart(l:curDir, 0, strridx(l:curDir, "/"))
+
+	if isdirectory(l:parentDir)
+		" Recursively walk to the top of the path
+		call ApplyLocalSettings(l:parentDir)
+	endif
+
+	" Now walk back down the path and source .vim.custom as you find them.
+	" This way child directories can 'inherit' from their parents
+	let l:settingsFile = a:dirname . "/.vim.custom"
+	if filereadable(l:settingsFile)
+		echom "Cargando configuración de '" . l:settingsFile . "'"
+		execute "source " . fnameescape(l:settingsFile)
+	endif
+endfunction
+"autocmd! BufEnter * call ApplyLocalSettings(expand("<afile>:p:h"))
+call ApplyLocalSettings((expand("%:p:h")))
